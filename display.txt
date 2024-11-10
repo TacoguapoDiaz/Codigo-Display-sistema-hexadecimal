@@ -1,0 +1,348 @@
+int operacion = 0;
+int EstadoA = 0;
+int EstadoB = 0;
+
+const int segmentA = 1;
+const int segmentB = 2;
+const int segmentC = 3;
+const int segmentD = 4;
+const int segmentE = 5;
+const int segmentF = 6;
+const int segmentG = 7;
+
+void setup() {
+  pinMode(13, INPUT); //boton b
+  pinMode(12, INPUT); //boton a
+  
+  pinMode(11, INPUT);  // DIP switch bit 0
+  pinMode(10, INPUT);  // DIP switch bit 1
+  pinMode(9, INPUT);   // DIP switch bit 2
+  pinMode(8, INPUT);   // DIP switch bit 3
+
+  pinMode(segmentA, OUTPUT);
+  pinMode(segmentB, OUTPUT);
+  pinMode(segmentC, OUTPUT);
+  pinMode(segmentD, OUTPUT);
+  pinMode(segmentE, OUTPUT);
+  pinMode(segmentF, OUTPUT);
+  pinMode(segmentG, OUTPUT);
+
+  pinMode(A0, OUTPUT);
+  pinMode(A1, OUTPUT);
+  pinMode(A2, OUTPUT);
+  pinMode(A3, OUTPUT);
+  pinMode(A4, OUTPUT);
+  pinMode(A5, OUTPUT);
+  pinMode(0, OUTPUT);
+}
+
+void loop() {
+  EstadoB = digitalRead(13); // Leer el estado del botón B
+  EstadoA = digitalRead(12); // Leer el estado del botón A
+  operacion = (digitalRead(11) << 0) | (digitalRead(10) << 1) | (digitalRead(9) << 2) | (digitalRead(8) << 3);
+  
+  apagarA();
+  apagarB();
+  
+  switch (operacion) {
+    case 0:
+      cerosA();
+      cerosB();
+      break;
+
+    case 1:
+      if (!EstadoA && !EstadoB) {
+        cerosA();
+        cerosB();
+      } else if (EstadoA && !EstadoB) {
+        
+        cerosB();
+        uno();
+      } else if (!EstadoA && EstadoB) {
+        
+        cerosB();
+        uno();  
+      } else if (EstadoA && EstadoB) {
+        cerosA();
+
+        acarreo();
+      }
+    break;
+
+    case 2:
+    if (!EstadoA && !EstadoB) {
+        
+        cerosA();
+        cerosB();
+      } else if (EstadoA && !EstadoB) {
+                
+        
+        cerosB();
+        uno();
+         
+      } else if (!EstadoA && EstadoB) {
+
+        
+        negativo();
+        
+      } else if (EstadoA && EstadoB) {
+        
+        cerosA();
+        cerosB();
+      }
+    break;
+
+    case 3:
+    if (EstadoA && EstadoB){
+    uno();
+    cerosB();
+    }else {
+      cerosA();
+      cerosB();
+  }
+    break;
+
+    case 4:
+    if(!EstadoA && !EstadoB){
+      infinito();
+    }else if(EstadoA && !EstadoB){
+      indeterminado();
+    }else if(!EstadoA && EstadoB){
+      cerosA();
+      cerosB();
+    }else if(EstadoA && EstadoB){
+      cerosB();
+      uno();
+    }
+    break;
+
+    case 5:
+    if (EstadoA && EstadoB){
+      uno();
+      cerosB();
+      
+    }else{
+      cerosB();
+      cerosA();
+    }
+    break;
+
+    case 6:
+    if(EstadoA || EstadoB){
+      uno();
+      cerosB();
+    }else{
+      cerosB();
+      cerosA();
+    }
+    break;
+    
+    case 7:
+    if(!EstadoA){
+      uno();
+      cerosB();
+    }else{
+      cerosA();
+      cerosB();
+    }
+    break;
+
+    case 8:
+    if (!EstadoA && !EstadoB){
+      cerosA();
+      cerosB();
+    }else if(EstadoA && EstadoB){
+    cerosA();
+      cerosB();
+    }else{
+      uno();
+      cerosB();
+    }
+    break;
+
+    case 9:
+    if (!EstadoA && !EstadoB){
+      uno();
+      cerosB();
+    }else if(EstadoA && EstadoB){
+      uno();
+      cerosB();
+    }else{
+      cerosA();
+      cerosB();
+    }
+
+    case 10:
+    if (EstadoA && EstadoB){
+
+      cerosB();
+      cerosA();
+    }else{
+      uno();
+      cerosB();
+    }
+    break;
+    break;
+
+    case 11:
+    if(EstadoA || EstadoB){
+      cerosB();
+      cerosA();
+    }else{
+      uno();
+      cerosB();
+      
+    }
+    break;
+    default:
+    error();
+      break;
+  }
+}
+
+void error(){
+  digitalWrite(7, HIGH); //g
+  digitalWrite(6, HIGH); //f
+  digitalWrite(5, HIGH); //e
+  digitalWrite(4, HIGH); //d
+  digitalWrite(3, HIGH); //c
+  digitalWrite(2, HIGH); //b
+  digitalWrite(1, HIGH); //a
+
+  digitalWrite(A0, HIGH); //a
+  digitalWrite(A1, HIGH); //b
+  digitalWrite(A2, HIGH); //c
+  digitalWrite(A3, HIGH); //d
+  digitalWrite(A4, HIGH); //e
+  digitalWrite(A5, HIGH); //f
+  digitalWrite(0, HIGH); //g
+
+  delay(50);
+
+  digitalWrite(7, LOW); //g
+  digitalWrite(6, LOW); //f
+  digitalWrite(5, LOW); //e
+  digitalWrite(4, LOW); //d
+  digitalWrite(3, LOW); //c
+  digitalWrite(2, LOW); //b
+  digitalWrite(1, LOW); //a
+
+  digitalWrite(A0, LOW); //a
+  digitalWrite(A1, LOW); //b
+  digitalWrite(A2, LOW); //c
+  digitalWrite(A3, LOW); //d
+  digitalWrite(A4, LOW); //e
+  digitalWrite(A5, LOW); //f
+  digitalWrite(0, LOW); //g
+
+  delay(50);
+}
+
+void indeterminado(){
+
+  digitalWrite(7, LOW); //g
+  digitalWrite(6, HIGH); //f
+  digitalWrite(5, HIGH); //e
+  digitalWrite(4, LOW); //d
+  digitalWrite(3, LOW); //c
+  digitalWrite(2, LOW); //b
+  digitalWrite(1, LOW); //a
+
+}
+
+void infinito(){
+  
+  digitalWrite(7, HIGH); //g
+  digitalWrite(6, HIGH); //f
+  digitalWrite(5, HIGH); //e
+  digitalWrite(4, HIGH); //d
+  digitalWrite(3, HIGH); //c
+  digitalWrite(2, HIGH); //b
+  digitalWrite(1, HIGH); //a
+
+  delay(50);
+
+  digitalWrite(7, LOW); //g
+  digitalWrite(6, LOW); //f
+  digitalWrite(5, LOW); //e
+  digitalWrite(4, LOW); //d
+  digitalWrite(3, LOW); //c
+  digitalWrite(2, LOW); //b
+  digitalWrite(1, LOW); //a
+
+  delay(50);
+
+}
+void negativo(){
+
+  digitalWrite(A0, LOW); //a
+  digitalWrite(A1, HIGH); //b
+  digitalWrite(A2, HIGH); //c
+  digitalWrite(A3, LOW); //d
+  digitalWrite(A4, LOW); //e
+  digitalWrite(A5, LOW); //f
+
+  digitalWrite(7, HIGH);
+  digitalWrite(6, LOW); //f
+  digitalWrite(5, LOW); //e
+  digitalWrite(4, LOW); //d
+  digitalWrite(3, LOW); //c
+  digitalWrite(2, LOW); //b
+  digitalWrite(1, LOW); //a
+
+}
+
+void cerosA() {
+  digitalWrite(A0, HIGH); //a
+  digitalWrite(A1, HIGH); //b
+  digitalWrite(A2, HIGH); //c
+  digitalWrite(A3, HIGH); //d
+  digitalWrite(A4, HIGH); //e
+  digitalWrite(A5, HIGH); //f
+}
+
+void cerosB() {
+  digitalWrite(6, HIGH); //f
+  digitalWrite(5, HIGH); //e
+  digitalWrite(4, HIGH); //d
+  digitalWrite(3, HIGH); //c
+  digitalWrite(2, HIGH); //b
+  digitalWrite(1, HIGH); //a
+}
+
+void apagarB() {
+  digitalWrite(7, LOW);
+  digitalWrite(6, LOW); //f
+  digitalWrite(5, LOW); //e
+  digitalWrite(4, LOW); //d
+  digitalWrite(3, LOW); //c
+  digitalWrite(2, LOW); //b
+  digitalWrite(1, LOW); //a
+}
+
+void apagarA() {
+  digitalWrite(A0, LOW); //a
+  digitalWrite(A1, LOW); //b
+  digitalWrite(A2, LOW); //c
+  digitalWrite(A3, LOW); //d
+  digitalWrite(A4, LOW); //e
+  digitalWrite(A5, LOW); //f
+}
+
+void acarreo() {
+  digitalWrite(6, LOW); //f
+  digitalWrite(5, LOW); //e
+  digitalWrite(4, LOW); //d
+  digitalWrite(3, HIGH); //c
+  digitalWrite(2, HIGH); //b
+  digitalWrite(1, LOW); //a
+}
+
+void uno() {
+  digitalWrite(A0, LOW); //a
+  digitalWrite(A1, HIGH); //b
+  digitalWrite(A2, HIGH); //c
+  digitalWrite(A3, LOW); //d
+  digitalWrite(A4, LOW); //e
+  digitalWrite(A5, LOW); //f
+}
