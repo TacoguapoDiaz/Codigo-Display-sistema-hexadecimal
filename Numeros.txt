@@ -1,0 +1,285 @@
+numero bien 
+
+
+int operacion = 0;
+int EstadoA = 0;
+int EstadoB = 0;
+
+void setup()
+{
+  
+  pinMode(13, INPUT);  // DIP switch bit 0
+  pinMode(12, INPUT);  // DIP switch bit 1
+  pinMode(11, INPUT);  // DIP switch bit 2
+  pinMode(10, INPUT);  // DIP switch bit 3
+  
+  pinMode(9, OUTPUT);  // Segmento A
+  pinMode(8, OUTPUT);  // Segmento B
+  pinMode(7, OUTPUT);  // Segmento C
+  pinMode(6, OUTPUT);  // Segmento D
+  pinMode(5, OUTPUT);  // Segmento E
+  pinMode(4, OUTPUT);  // Segmento F
+  pinMode(3, OUTPUT);  // Segmento G
+  
+  
+  
+}
+
+void loop()
+{
+  EstadoA = digitalRead(2);
+  EstadoB = digitalRead(1);
+  operacion = (digitalRead(13) << 0) | (digitalRead(12) << 1) | (digitalRead(11) << 2) | (digitalRead(10) << 3);
+  
+  apagar();
+  
+  switch (operacion) {
+    case 0:
+      
+      cero();
+      break;
+
+      case 1:
+
+      uno();
+      break;
+  case 2:
+    dos();
+    break;
+    case 3:
+    tres();
+    break;
+    
+    case 4:
+    cuatro();
+    break;
+    case 5:
+      cinco();
+    break;
+    case 6:
+      seis();
+    break;
+    case 7:
+      siete();
+    break;
+    case 8:
+      ocho();
+    break;
+    case 9:
+      nueve();
+    break;
+    case 10:
+      a();
+    break;
+    case 11:
+      b();
+    break;
+    case 12:
+      c();
+    break;
+    case 13:
+      d();
+    break;
+    case 14:
+      e();
+    break;
+    case 15:
+      f();
+    break;
+    default:
+      // Otros casos
+      break;
+
+  }
+}
+void ind(){
+  digitalWrite(0, LOW);
+  digitalWrite(A0, LOW);
+}
+
+void infinito(){
+  digitalWrite(A4, HIGH); //C
+  digitalWrite(A5, HIGH); //B
+  digitalWrite(A3, HIGH); //G
+  digitalWrite(A2, HIGH); //A
+  digitalWrite(A1, HIGH); //D
+  digitalWrite(A0, HIGH); //E
+  digitalWrite(0, HIGH); //F 
+  
+  delay(250); 
+  
+  
+  digitalWrite(A4, LOW);
+  digitalWrite(A5, LOW);
+  digitalWrite(A3, LOW);
+  digitalWrite(A2, LOW);
+  digitalWrite(A1, LOW);
+  digitalWrite(A0, LOW);
+  digitalWrite(0, LOW);
+  
+  delay(250); 
+}
+
+void negativo (){
+digitalWrite(A3, LOW);
+}
+
+void acarreo(){
+  digitalWrite(A4,LOW);
+  digitalWrite(A5,LOW);
+}
+
+void apagar(){
+  digitalWrite(9, LOW);  // Segmento A
+  digitalWrite(8, LOW);  // Segmento B
+  digitalWrite(7, LOW);  // Segmento C
+  digitalWrite(6, LOW);  // Segmento D
+  digitalWrite(5, LOW);  // Segmento E
+  digitalWrite(4, LOW);  // Segmento F
+  digitalWrite(3, LOW);   // Segmento G
+ 
+}
+void cero() {
+  digitalWrite(9, HIGH);  // Segmento A
+  digitalWrite(8, HIGH);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, HIGH);  // Segmento D
+  digitalWrite(5, HIGH);  // Segmento E
+  digitalWrite(4, HIGH);  // Segmento F
+  digitalWrite(3, LOW);   // Segmento G
+}
+void uno() {
+  digitalWrite(9, LOW);  // Segmento A
+  digitalWrite(8, HIGH);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, LOW);  // Segmento D
+  digitalWrite(5, LOW);  // Segmento E
+  digitalWrite(4, LOW);  // Segmento F
+  digitalWrite(3, LOW);   // Segmento G
+}
+void dos() {
+  digitalWrite(9, HIGH);  // Segmento A
+  digitalWrite(8, HIGH);  // Segmento B
+  digitalWrite(7, LOW);  // Segmento C
+  digitalWrite(6, HIGH);  // Segmento D
+  digitalWrite(5, HIGH);  // Segmento E
+  digitalWrite(4, LOW);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void tres() {
+  digitalWrite(9, HIGH);  // Segmento A
+  digitalWrite(8, HIGH);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, HIGH);  // Segmento D
+  digitalWrite(5, LOW);  // Segmento E
+  digitalWrite(4, LOW);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void cuatro() {
+  digitalWrite(9, LOW);  // Segmento A
+  digitalWrite(8, HIGH);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, LOW);  // Segmento D
+  digitalWrite(5, LOW);  // Segmento E
+  digitalWrite(4, HIGH);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void cinco() {
+  digitalWrite(9, HIGH);  // Segmento A
+  digitalWrite(8, LOW);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, HIGH);  // Segmento D
+  digitalWrite(5, LOW);  // Segmento E
+  digitalWrite(4, HIGH);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void seis() {
+  digitalWrite(9, HIGH);  // Segmento A
+  digitalWrite(8, LOW);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, HIGH);  // Segmento D
+  digitalWrite(5, HIGH);  // Segmento E
+  digitalWrite(4, HIGH);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void siete() {
+  digitalWrite(9, HIGH);  // Segmento A
+  digitalWrite(8, HIGH);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, LOW);  // Segmento D
+  digitalWrite(5, LOW);  // Segmento E
+  digitalWrite(4, LOW);  // Segmento F
+  digitalWrite(3, LOW);   // Segmento G
+}
+void ocho() {
+  digitalWrite(9, HIGH);  // Segmento A
+  digitalWrite(8, HIGH);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, HIGH);  // Segmento D
+  digitalWrite(5, HIGH);  // Segmento E
+  digitalWrite(4, HIGH);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void nueve() {
+  digitalWrite(9, HIGH);  // Segmento A
+  digitalWrite(8, HIGH);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, LOW);  // Segmento D
+  digitalWrite(5, LOW);  // Segmento E
+  digitalWrite(4, HIGH);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void a() {
+  digitalWrite(9, HIGH);  // Segmento A
+  digitalWrite(8, HIGH);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, LOW);  // Segmento D
+  digitalWrite(5, HIGH);  // Segmento E
+  digitalWrite(4, HIGH);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void b() {
+  digitalWrite(9, LOW);  // Segmento A
+  digitalWrite(8, LOW);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, HIGH);  // Segmento D
+  digitalWrite(5, HIGH);  // Segmento E
+  digitalWrite(4, HIGH);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void c() {
+  digitalWrite(9, LOW);  // Segmento A
+  digitalWrite(8, LOW);  // Segmento B
+  digitalWrite(7, LOW);  // Segmento C
+  digitalWrite(6, HIGH);  // Segmento D
+  digitalWrite(5, HIGH);  // Segmento E
+  digitalWrite(4, LOW);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void d() {
+  digitalWrite(9, LOW);  // Segmento A
+  digitalWrite(8, HIGH);  // Segmento B
+  digitalWrite(7, HIGH);  // Segmento C
+  digitalWrite(6, HIGH);  // Segmento D
+  digitalWrite(5, HIGH);  // Segmento E
+  digitalWrite(4, LOW);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void e() {
+  digitalWrite(9, HIGH);  // Segmento A
+  digitalWrite(8, LOW);  // Segmento B
+  digitalWrite(7, LOW);  // Segmento C
+  digitalWrite(6, HIGH);  // Segmento D
+  digitalWrite(5, HIGH);  // Segmento E
+  digitalWrite(4, HIGH);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
+void f() {
+  digitalWrite(9, HIGH);  // Segmento A
+  digitalWrite(8, LOW);  // Segmento B
+  digitalWrite(7, LOW);  // Segmento C
+  digitalWrite(6, LOW);  // Segmento D
+  digitalWrite(5, HIGH);  // Segmento E
+  digitalWrite(4, HIGH);  // Segmento F
+  digitalWrite(3, HIGH);   // Segmento G
+}
